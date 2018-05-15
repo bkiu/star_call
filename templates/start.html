@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="https://grmc.io/static/flask/libs/bootstrap/css/bootstrap.min.css"/>
+    <script src="https://grmc.io/static/flask/libs/bootstrap/js/jquery.min.js"></script>
+    <script src="https://grmc.io/static/flask/libs/bootstrap/js/bootstrap.js"></script>
+    <style>
+      h2, h3 {
+        color: white;
+      }
+    </style>
+  </head>
+  <body style="background-color: black;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h2 style="color: white;" class="text-center">Welcome Commander {{ player.name }}</h2>
+          <br>
+          <h3>Your fleet awaits your commands, REST API's have been setup so that you can command your fleet. Use the token below and use your fleet to conquer the redis galaxy.</h3>
+          <h3>Username: {{ player.username }}</h3>
+          <h3>Password: {{ player.token }}</h3>
+
+          <h3>Use HTTP Basic Auth - {{ player.username }}:{{ player.token }}</h3>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
