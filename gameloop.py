@@ -7,7 +7,7 @@ from universe import Galaxy
 
 
 class Game(object):
-    RESOURCE_RATIO_PER_TICK = 0.001
+    RESOURCE_RATIO_PER_TICK = 0.0001
     SHIELDS_INCREMENT = 5
 
     def __init__(self, key):

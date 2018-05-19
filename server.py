@@ -12,7 +12,7 @@ from models import Planet, Player, Ship, Weapon
 from auth import create_player_token, requires_auth, get_player
 from serializer import serial_planet, serial_ship
 from init import app, db, mygalaxy
-from utils import create_ship
+from utils import create_ship, crossdomain
 
 SHIP_TYPES = ['CORVETTE', 'DESTROYER', 'TITAN']
 
@@ -21,7 +21,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/start", methods=["GET", "POST"])
+@app.route("/start", methods=["GET", "POST", "OPTIONS"])
 def start():
     if request.method == "POST":
         player = create_player_token(request.form.get("username"))
@@ -40,7 +40,8 @@ def start():
     return render_template("start.html", player=player)
 
 
-@app.route("/ship/<string:id>/", methods=["GET", "POST"])
+@app.route("/ship/<string:id>/", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*', methods=["GET", "OPTIONS"])
 @requires_auth
 def ship(id):
     player = get_player()
@@ -60,7 +61,8 @@ def ship(id):
     return jsonify(serial_ship(ship))
 
 
-@app.route("/player/", methods=["GET", "POST"])
+@app.route("/player/", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def player():
     player = get_player()
@@ -68,7 +70,8 @@ def player():
 
 
 
-@app.route("/player/planets", methods=["GET", "POST"])
+@app.route("/player/planets", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def player_planets():
     player = get_player()
@@ -79,7 +82,8 @@ def player_planets():
     return jsonify(player_planets)
 
 
-@app.route("/player/ships", methods=["GET", "POST"])
+@app.route("/player/ships", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def player_ships():
     player = get_player()
@@ -90,7 +94,8 @@ def player_ships():
     return jsonify(player_ships)
 
 
-@app.route("/radar/<string:id>", methods=["GET", "POST"])
+@app.route("/radar/<string:id>", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def radar_ship(id):
     player = get_player()
@@ -120,7 +125,8 @@ def radar_ship(id):
     return jsonify(useful_locations)
 
 
-@app.route("/radar", methods=["GET", "POST"])
+@app.route("/radar", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def radar():
     player = get_player()
@@ -157,7 +163,8 @@ def radar():
     return jsonify(useful_locations)
 
 
-@app.route("/ship/<string:id>/move", methods=["GET", "POST"])
+@app.route("/ship/<string:id>/move", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def move_ship(id):
     if request.method == "POST":
@@ -172,7 +179,8 @@ def move_ship(id):
     return jsonify({ "status": "Failure" })
 
 
-@app.route("/ship/<string:id>/capture", methods=["GET", "POST"])
+@app.route("/ship/<string:id>/capture", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def capture_planet(id):
     if request.method == "POST":
@@ -192,7 +200,8 @@ def capture_planet(id):
 
 
 
-@app.route("/ship/<string:id>/fire", methods=["GET", "POST"])
+@app.route("/ship/<string:id>/fire", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def fire(id):
     player = get_player()
@@ -205,7 +214,8 @@ def fire(id):
     return "Cannot complete action", 400
 
 
-@app.route("/planet/<string:id>", methods=["GET", "POST"])
+@app.route("/planet/<string:id>", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def planet(id):
     player = get_player()
@@ -222,7 +232,8 @@ def planet(id):
     return "You need a ship to see that", 424
 
 
-@app.route("/planet/<string:id>/build", methods=["GET", "POST"])
+@app.route("/planet/<string:id>/build", methods=["GET", "POST", "OPTIONS"])
+@crossdomain(origin='*')
 @requires_auth
 def ship_build(id):
     player = get_player()

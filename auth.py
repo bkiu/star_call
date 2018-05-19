@@ -15,6 +15,8 @@ def create_player_token(username):
 def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
+        if request.method == "OPTIONS":
+            return "OK"
         auth = request.authorization
         print(auth)
         if auth and check_auth(auth):
